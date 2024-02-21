@@ -380,6 +380,9 @@ describe("Testing hiscores", function () {
   it("should respond with array of highscores for a specific level and page, scores should be ordered from biggest to smallest", async function () {
     // first add thirty high scores for level A2
     for (let i = 0; i < 30; i++) {
+      const minutes = i < 10 ? "0" + i.toString() : i.toString();
+      // construct timestamp in the format of 2021-04-01T12:00:00Z
+      const timestamp = `2021-04-01T12:${minutes}:00Z`;
       await chai
         .request(apiAddress)
         .post("/high-scores")
@@ -388,7 +391,7 @@ describe("Testing hiscores", function () {
           level: "A2",
           userHandle: "DukeNukem",
           score: Math.floor(Math.random() * 100000),
-          timestamp: `2021-04-01T12:0${i}:00Z`,
+          timestamp: timestamp,
         });
     }
 
